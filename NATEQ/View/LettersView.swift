@@ -45,13 +45,11 @@ struct LettersView: View {
                     LazyVGrid(columns: columns, spacing: 25) {
                         
                         // نستخدم indices لتعديل حالة isCompleted لكل حرف
-                        ForEach(viewModel.letters.indices, id: \.self) { index in
-                            let item = viewModel.letters[index]
-                            
+                        ForEach($viewModel.letters) { $item in
                             NavigationLink {
-                                SpeechSandboxView(
-                                    receivedImageName: item.imageName,
-                                    initialTargetSymbol: item.char
+                                SpeechView(
+                                    receivedVideoName: item.videoName.isEmpty ? nil : item.videoName,
+                                    initialTargetSymbol: item.symbol
                                 )
                             } label: {
                                 HStack(spacing: 10) {
@@ -60,19 +58,22 @@ struct LettersView: View {
                                         .scaledToFit()
                                         .frame(width: 70, height: 70)
                                         .clipShape(RoundedRectangle(cornerRadius: 12))
-                                    
+
                                     Text(item.char)
-                                        .font(.system(size: 55))
+                                        .font(.system(size: 40))
                                         .fontWeight(.medium)
+                                        .foregroundColor(.black)
                                 }
                                 .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(item.isCompleted ? Color(hex: "#CCDCDA") : Color.white.opacity(0.85))
-                                .cornerRadius(20)
+                                .background(
+                                    Capsule()
+                                        .fill(item.isCompleted ? Color(hex: "#E3F2EF") : Color.white.opacity(0.9))
+                                )
+                                .shadow(color: .black.opacity(0.05), radius: 8, x: 0, y: 6)
                             }
                             .simultaneousGesture(TapGesture().onEnded {
-                                // عشان تضل ميزة "تم/غير تم" تشتغل
-                                viewModel.letters[index].isCompleted.toggle()
+                                item.isCompleted.toggle()   // ✅ يشتغل بدون index
                             })
                         }
                     }

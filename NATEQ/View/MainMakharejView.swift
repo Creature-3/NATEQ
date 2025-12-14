@@ -32,8 +32,7 @@ struct MainMakharejView: View {
                         LettersView(title: "مخرج الحلق", category: .halq)
                     ) {
                         menuButton("الحلق")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
+                            
 
                     }
 
@@ -41,16 +40,14 @@ struct MainMakharejView: View {
                         LettersView(title: "مخرج الشفتين", category: .shafateen)
                     ) {
                         menuButton("الشفتين")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
+                            
                     }
 
                     NavigationLink(destination:
                         LettersView(title: "مخرج اللسان", category: .lisan)
                     ) {
                         menuButton("اللسان")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
+                            
                     }
                 }
                 .padding()
@@ -59,12 +56,20 @@ struct MainMakharejView: View {
 
     func menuButton(_ text: String) -> some View {
         Text(text)
-            .font(.title2)
+            .font(.system(size: 28, weight: .medium))
             .foregroundColor(.black)
-            .frame(width: 266, height: 106)
-            .background(Color(hex: "#CCDCDA"))
-            .cornerRadius(33)
+            .frame(width: 266, height: 96)
+            .background(
+                Capsule()
+                    .fill(Color.white.opacity(0.42))
+                    .background(
+                        Capsule()
+                            .fill(Color(hex: "#B0E4DD"))
+                            .blur(radius: 18)
+                    )
+            )
     }
+
 }
 
 #Preview {

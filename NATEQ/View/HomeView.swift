@@ -11,7 +11,7 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-
+                
                 RadialGradient(
                     gradient: Gradient(colors: [
                         Color.white,
@@ -22,18 +22,18 @@ struct HomeView: View {
                     endRadius: 900
                 )
                 .ignoresSafeArea()
-
+                
                 VStack(spacing: 40) {
-
+                    
                     Spacer()
-
+                    
                     Text("اختر طريقة التعلم التي تناسبك")
                         .font(.system(size: 32, weight: .bold))
                         .multilineTextAlignment(.center)
                         .foregroundColor(.black)
                         .padding(.horizontal)
-
-                    // ✅ زر الحروف (ينقل لصفحة كل الحروف)
+                    
+                    // ✅ زر الحروف
                     NavigationLink {
                         LettersView(
                             title: "اختر الحرف",
@@ -41,31 +41,38 @@ struct HomeView: View {
                         )
                     } label: {
                         menuButtonStyle("الحروف")
+                        
                     }
-
+                    
                     // ✅ زر مخارج الحروف
                     NavigationLink {
                         MainMakharejView()
                     } label: {
                         menuButtonStyle("مخارج الحروف")
                     }
-
+                    
                     Spacer()
                 }
             }
         }
     }
-
-    // شكل الزر
+    
+    // ✅ زر بشكل عضوي + Glass effect
     func menuButtonStyle(_ text: String) -> some View {
-        Text(text)
-            .font(.largeTitle)
-            .fontWeight(.bold)
-            .foregroundColor(.black)
-            .frame(width: 266, height: 106)
-            .background(Color(hex: "#CCDCDA"))
-            .cornerRadius(33)
-    }
+            Text(text)
+                .font(.system(size: 28, weight: .medium)) 
+                .foregroundColor(.black)
+                .frame(width: 266, height: 96)
+                .background(
+                    Capsule()
+                        .fill(Color.white.opacity(0.42))
+                        .background(
+                            Capsule()
+                                .fill(Color(hex: "#B0E4DD"))
+                                .blur(radius: 18)
+                        )
+                )
+        }
 }
 #Preview {
     HomeView()

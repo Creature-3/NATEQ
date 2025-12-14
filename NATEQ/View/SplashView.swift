@@ -48,8 +48,12 @@ struct SplashView: View {
                     .font(.system(size: 48, weight: .bold))
                     .foregroundColor(.black.opacity(0.85))
                     .opacity(showTitle ? 1 : 0)
-                    .scaleEffect(showTitle ? 1 : 0.92)
-                    .animation(.easeOut(duration: 0.55), value: showTitle)
+                    .scaleEffect(showTitle ? 1.03 : 0.96)
+                    .animation(
+                        .easeInOut(duration: 1.4).repeatForever(autoreverses: true),
+                        value: showTitle
+                    )
+
 
                 // الانتقال للصفحة التالية
                 if goNext {
